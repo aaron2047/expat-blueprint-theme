@@ -1,0 +1,26 @@
+{
+  "current": "Default",
+  "presets": {
+    "Default": {
+      "colors": {
+        "navy": "#1a1f3a",
+        "gold": "#d4af37",
+        "cream": "#f9f7f3",
+        "text": "#2d3142",
+        "muted": "#666666",
+        "border": "#e5dcd0"
+      },
+      "typography": {
+        "font_family_serif": "Georgia, serif",
+        "font_family_sans": "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+        "font_size_h1": "48px",
+        "font_size_h2": "28px",
+        "font_size_body": "16px"
+      },
+      "spacing": {
+        "section_padding_vertical": "4rem",
+        "section_padding_horizontal": "2rem"
+      }
+    }
+  }
+}
