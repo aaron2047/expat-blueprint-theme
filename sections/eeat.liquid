@@ -1,49 +1,25 @@
 {% schema %}
 {
-  "name": "E-E-A-T Verification Section",
+  "name": "E-E-A-T / FAQ",
   "class": "section-eeat",
   "settings": [
     {
       "type": "text",
-      "id": "section_title",
-      "label": "Section Title",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "E-E-A-T Matrix"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
       "default": "2026 Data Verification & Compliance Standards"
     },
     {
-      "type": "text",
-      "id": "card_1_title",
-      "label": "Card 1 Title",
-      "default": "How is the data verified?"
-    },
-    {
       "type": "textarea",
-      "id": "card_1_description",
-      "label": "Card 1 Description",
-      "default": "Every figure inside the blueprint is sourced, dated, and re-audited each release cycle to ensure accuracy and compliance with international standards."
-    },
-    {
-      "type": "text",
-      "id": "card_2_title",
-      "label": "Card 2 Title",
-      "default": "Does this replace legal counsel?"
-    },
-    {
-      "type": "textarea",
-      "id": "card_2_description",
-      "label": "Card 2 Description",
-      "default": "This guide is for informational purposes only and is not legal, immigration, tax, or financial advice. Always consult with qualified professionals before making relocation decisions."
-    },
-    {
-      "type": "text",
-      "id": "card_3_title",
-      "label": "Card 3 Title",
-      "default": "How is it delivered?"
-    },
-    {
-      "type": "textarea",
-      "id": "card_3_description",
-      "label": "Card 3 Description",
-      "default": "Instant secure PDF download. Optimized for mobile, desktop, and e-readers. No printing restrictions or DRM. Access your guide forever."
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Every figure inside the blueprint is sourced, dated, and re-audited each release cycle."
     }
   ]
 }
@@ -51,79 +27,220 @@
 
 <style>
   .section-eeat {
-    padding: 4rem 2rem;
-    background-color: #ffffff;
+    background: #fcfdfd;
+    padding: 6rem 2rem;
+    border-bottom: 1px solid #e6e8ea;
   }
 
-  .eeat-title {
-    font-family: Georgia, serif;
-    font-size: 24px;
-    text-align: center;
-    margin-bottom: 2rem;
-    color: #1a1f3a;
-  }
-
-  .eeat-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    max-width: 1200px;
+  .eeat-inner {
+    max-width: 1080px;
     margin: 0 auto;
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 3.5rem;
+    align-items: start;
   }
 
-  .eeat-card {
-    background-color: #f9f7f3;
-    padding: 1.5rem;
-    border: 0.5px solid #e5dcd0;
+  .eeat-eyebrow {
+    font-size: 8.5px;
+    font-weight: 600;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(26,95,122,0.7);
+    margin: 0 0 1rem;
   }
 
-  .eeat-card-title {
-    font-family: Georgia, serif;
+  .eeat-headline {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(24px, 2.5vw, 34px);
+    font-weight: 700;
+    line-height: 1.2;
+    color: #1a5f7a;
+    margin: 0 0 1.25rem;
+  }
+
+  .eeat-rule {
+    width: 48px;
+    height: 2px;
+    background: #8bc34a;
+    margin-bottom: 1.5rem;
+  }
+
+  .eeat-subtext {
     font-size: 14px;
-    color: #d4af37;
-    margin-bottom: 0.75rem;
-    letter-spacing: 0.5px;
-    font-weight: 500;
+    line-height: 1.7;
+    color: rgba(26,95,122,0.75);
+    margin: 0;
   }
 
-  .eeat-card-description {
-    font-size: 13px;
-    color: #666666;
-    line-height: 1.6;
+  /* Accordion */
+  .eeat-accordion {
+    width: 100%;
   }
 
-  @media (max-width: 768px) {
-    .eeat-grid {
+  .eeat-item {
+    border-bottom: 1px solid rgba(26,95,122,0.15);
+  }
+
+  .eeat-trigger {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #1a5f7a;
+  }
+
+  .eeat-trigger:hover { color: #13495e; }
+
+  .eeat-icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+
+  .eeat-icon::before,
+  .eeat-icon::after {
+    content: '';
+    position: absolute;
+    background: #8bc34a;
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .eeat-icon::before {
+    width: 12px;
+    height: 2px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .eeat-icon::after {
+    width: 2px;
+    height: 12px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .eeat-item.is-open .eeat-icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+    opacity: 0;
+  }
+
+  .eeat-body {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.35s ease;
+  }
+
+  .eeat-body-inner {
+    padding: 0 0 1.5rem;
+    font-size: 14px;
+    line-height: 1.75;
+    color: rgba(26,95,122,0.8);
+  }
+
+  @media (max-width: 760px) {
+    .eeat-inner {
       grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-
-    .section-eeat {
-      padding: 2rem 1.5rem;
-    }
-
-    .eeat-title {
-      font-size: 20px;
+      gap: 2.5rem;
     }
   }
 </style>
 
-<section class="section-eeat">
-  <div class="container">
-    <h2 class="eeat-title">{{ section.settings.section_title }}</h2>
-    <div class="eeat-grid">
-      <div class="eeat-card">
-        <h3 class="eeat-card-title">{{ section.settings.card_1_title }}</h3>
-        <p class="eeat-card-description">{{ section.settings.card_1_description }}</p>
+<section class="section-eeat" id="verification">
+  <div class="eeat-inner">
+
+    <!-- LEFT: heading -->
+    <div>
+      <p class="eeat-eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="eeat-headline">{{ section.settings.headline | escape }}</h2>
+      <div class="eeat-rule"></div>
+      <p class="eeat-subtext">{{ section.settings.subtext }}</p>
+    </div>
+
+    <!-- RIGHT: accordion -->
+    <div class="eeat-accordion" id="eeat-accordion-{{ section.id }}">
+
+      <div class="eeat-item">
+        <button class="eeat-trigger" aria-expanded="false">
+          How is the data verified?
+          <span class="eeat-icon" aria-hidden="true"></span>
+        </button>
+        <div class="eeat-body" role="region">
+          <div class="eeat-body-inner">
+            Every visa threshold, country snapshot, and regulatory baseline is actively audited against current 2026 framework releases, including active IRCC Express Entry draws, NMC Test of Competence timelines, and current ocean freight indices.
+          </div>
+        </div>
       </div>
-      <div class="eeat-card">
-        <h3 class="eeat-card-title">{{ section.settings.card_2_title }}</h3>
-        <p class="eeat-card-description">{{ section.settings.card_2_description }}</p>
+
+      <div class="eeat-item">
+        <button class="eeat-trigger" aria-expanded="false">
+          Does this replace legal counsel?
+          <span class="eeat-icon" aria-hidden="true"></span>
+        </button>
+        <div class="eeat-body" role="region">
+          <div class="eeat-body-inner">
+            This guide is for general informational and educational purposes only and is not legal, immigration, tax, or financial advice. All listings are structured to act as your operational checklist before you engage certified cross-border practitioners.
+          </div>
+        </div>
       </div>
-      <div class="eeat-card">
-        <h3 class="eeat-card-title">{{ section.settings.card_3_title }}</h3>
-        <p class="eeat-card-description">{{ section.settings.card_3_description }}</p>
+
+      <div class="eeat-item">
+        <button class="eeat-trigger" aria-expanded="false">
+          How is the digital asset delivered?
+          <span class="eeat-icon" aria-hidden="true"></span>
+        </button>
+        <div class="eeat-body" role="region">
+          <div class="eeat-body-inner">
+            Fulfillment is handled completely automatically. The exact second your payment clears at checkout, a secure high-definition vector PDF asset link is routed directly to your checkout email token.
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
 </section>
+
+<script>
+(function () {
+  var accordion = document.getElementById('eeat-accordion-{{ section.id }}');
+  if (!accordion) return;
+
+  accordion.addEventListener('click', function (e) {
+    var trigger = e.target.closest('.eeat-trigger');
+    if (!trigger) return;
+
+    var item   = trigger.closest('.eeat-item');
+    var body   = item.querySelector('.eeat-body');
+    var isOpen = item.classList.contains('is-open');
+
+    // Close all
+    accordion.querySelectorAll('.eeat-item.is-open').forEach(function (openItem) {
+      openItem.classList.remove('is-open');
+      openItem.querySelector('.eeat-body').style.maxHeight = '0';
+      openItem.querySelector('.eeat-trigger').setAttribute('aria-expanded', 'false');
+    });
+
+    // Open clicked (if it was closed)
+    if (!isOpen) {
+      item.classList.add('is-open');
+      body.style.maxHeight = body.scrollHeight + 'px';
+      trigger.setAttribute('aria-expanded', 'true');
+    }
+  });
+})();
+</script>

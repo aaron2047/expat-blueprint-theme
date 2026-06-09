@@ -5,14 +5,32 @@
   "settings": [
     {
       "type": "text",
-      "id": "copyright_text",
-      "label": "Copyright Text",
-      "default": "© 2026 The Expat Blueprint. All rights reserved."
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "The Back Cover"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "BUILD YOUR PIPELINE. SECURE YOUR FUTURE."
     },
     {
       "type": "textarea",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "The Expat Blueprint is the definitive, no-nonsense manual built specifically for individuals and families who cannot afford to make a mistake."
+    },
+    {
+      "type": "text",
+      "id": "domain",
+      "label": "Domain Display",
+      "default": "EXPATBLUEPRINT.STORE"
+    },
+    {
+      "type": "text",
       "id": "disclaimer",
-      "label": "Disclaimer",
+      "label": "Legal Disclaimer",
       "default": "This guide is for informational purposes only and is not legal, immigration, tax, or financial advice."
     }
   ]
@@ -21,72 +39,89 @@
 
 <style>
   .section-footer {
-    background-color: #1a1f3a;
-    color: #d4af37;
-    padding: 2rem;
+    background: #1a5f7a;
+    color: #fff;
+  }
+
+  .footer-main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 6rem 2rem 7rem;
     text-align: center;
-    margin-top: 4rem;
-    border-top: 1px solid #2d2f47;
   }
 
-  .footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
+  .footer-eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: #8bc34a;
+    margin: 0 0 1.25rem;
   }
 
-  .footer-copyright {
-    font-size: 12px;
-    margin-bottom: 1rem;
-    color: #d4af37;
+  .footer-headline {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    color: #fff;
+    margin: 0 0 1.5rem;
   }
 
-  .footer-disclaimer {
+  .footer-rule {
+    width: 56px;
+    height: 2px;
+    background: #8bc34a;
+    margin: 0 auto 1.75rem;
+  }
+
+  .footer-tagline {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 15px;
+    font-style: italic;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.8);
+    max-width: 640px;
+    margin: 0 auto 3rem;
+  }
+
+  .footer-domain {
     font-size: 11px;
-    color: #999;
-    line-height: 1.6;
-    max-width: 600px;
+    font-weight: 600;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  .footer-legal {
+    border-top: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .footer-legal-inner {
+    max-width: 1280px;
     margin: 0 auto;
-  }
-
-  .footer-nav {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    margin-bottom: 1rem;
-    font-size: 12px;
-    flex-wrap: wrap;
-  }
-
-  .footer-nav a {
-    color: #d4af37;
-    text-decoration: none;
-    transition: color 0.2s ease;
-  }
-
-  .footer-nav a:hover {
-    color: #e5c24a;
-    text-decoration: underline;
-  }
-
-  @media (max-width: 768px) {
-    .section-footer {
-      padding: 1.5rem 1.5rem;
-    }
-
-    .footer-nav {
-      gap: 1rem;
-    }
+    padding: 1.25rem 2rem;
+    text-align: center;
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
   }
 </style>
 
 <footer class="section-footer">
-  <div class="footer-container">
-    <nav class="footer-nav">
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Service</a>
-      <a href="#">Contact</a>
-    </nav>
-    <p class="footer-copyright">{{ section.settings.copyright_text }}</p>
-    <p class="footer-disclaimer">{{ section.settings.disclaimer }}</p>
+  <div class="footer-main">
+    <p class="footer-eyebrow">{{ section.settings.eyebrow }}</p>
+    <h2 class="footer-headline">{{ section.settings.headline | escape }}</h2>
+    <div class="footer-rule"></div>
+    <p class="footer-tagline">{{ section.settings.tagline }}</p>
+    <p class="footer-domain">{{ section.settings.domain }}</p>
+  </div>
+
+  <div class="footer-legal">
+    <div class="footer-legal-inner">
+      &copy; {{ 'now' | date: '%Y' }} The Expat Blueprint. All rights reserved. {{ section.settings.disclaimer }}
+    </div>
   </div>
 </footer>

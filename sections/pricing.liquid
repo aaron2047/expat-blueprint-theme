@@ -1,28 +1,19 @@
 {% schema %}
 {
-  "name": "Pricing Tiers Section",
+  "name": "Pricing Tiers",
   "class": "section-pricing",
   "settings": [
     {
       "type": "text",
-      "id": "section_title",
-      "label": "Section Title",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Monetization Tiers"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
       "default": "Select Your Operational Tier"
-    },
-    {
-      "type": "product",
-      "id": "product_1",
-      "label": "Entry Manual Product"
-    },
-    {
-      "type": "product",
-      "id": "product_2",
-      "label": "Blueprint Bundle Product (Featured)"
-    },
-    {
-      "type": "product",
-      "id": "product_3",
-      "label": "Concierge Product"
     }
   ]
 }
@@ -30,190 +21,295 @@
 
 <style>
   .section-pricing {
-    padding: 4rem 2rem;
-    background-color: #f9f7f3;
+    background: #fff;
+    padding: 6rem 2rem;
+    border-top: 1px solid #e6e8ea;
+    border-bottom: 1px solid #e6e8ea;
   }
 
-  .pricing-title {
-    font-family: Georgia, serif;
-    font-size: 28px;
+  .pricing-header {
+    max-width: 720px;
+    margin: 0 auto 3.5rem;
     text-align: center;
-    margin-bottom: 3rem;
-    color: #1a1f3a;
   }
 
-  .pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    max-width: 1200px;
+  .pricing-eyebrow {
+    font-size: 8.5px;
+    font-weight: 600;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(26,95,122,0.7);
+    margin: 0 0 1.25rem;
+  }
+
+  .pricing-headline {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(28px, 3.5vw, 40px);
+    font-weight: 700;
+    line-height: 1.15;
+    color: #1a5f7a;
+    margin: 0 0 1.25rem;
+  }
+
+  .pricing-rule {
+    width: 56px;
+    height: 2px;
+    background: #8bc34a;
     margin: 0 auto;
   }
 
-  .pricing-tier {
-    background-color: #ffffff;
-    border: 0.5px solid #e5dcd0;
-    padding: 2rem;
+  .pricing-grid {
+    max-width: 1120px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .pricing-card {
     position: relative;
-    transition: transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #e6e8ea;
+    padding: 2rem;
+    transition: border-color 0.2s;
   }
 
-  .pricing-tier:hover {
-    transform: translateY(-4px);
+  .pricing-card:hover {
+    border-color: rgba(26,95,122,0.4);
   }
 
-  .pricing-tier.featured {
-    border: 2px solid #d4af37;
+  .pricing-card--recommended {
+    border-color: #1a5f7a;
+    box-shadow: 0 24px 60px -30px rgba(26,95,122,0.4);
+    margin-top: -1rem;
   }
 
-  .pricing-tier.featured::before {
-    content: 'Recommended';
+  .pricing-badge {
     position: absolute;
     top: -12px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #d4af37;
-    color: #1a1f3a;
+    background: #8bc34a;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
     padding: 4px 12px;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
     white-space: nowrap;
   }
 
-  .tier-title {
-    font-family: Georgia, serif;
-    font-size: 16px;
-    color: #1a1f3a;
-    margin-bottom: 0.5rem;
+  .pricing-name {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #1a5f7a;
+    margin: 0 0 0.5rem;
   }
 
-  .tier-price {
-    font-family: Georgia, serif;
-    font-size: 32px;
-    color: #d4af37;
-    margin-bottom: 1rem;
+  .pricing-name-rule {
+    width: 40px;
+    height: 2px;
+    background: #8bc34a;
+    margin-bottom: 1.5rem;
   }
 
-  .tier-price-currency {
-    font-size: 14px;
-    color: #666666;
+  .pricing-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin-bottom: 1.75rem;
   }
 
-  .tier-features {
+  .pricing-price {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1;
+    color: #1a5f7a;
+  }
+
+  .pricing-currency {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(26,95,122,0.6);
+  }
+
+  .pricing-features {
     list-style: none;
-    margin: 1.5rem 0;
+    margin: 0 0 auto;
     padding: 0;
+    border-top: 1px solid #e6e8ea;
+    padding-top: 1.5rem;
+    flex: 1;
   }
 
-  .tier-features li {
-    padding: 0.5rem 0;
-    color: #666666;
-    font-size: 13px;
+  .pricing-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: rgba(26,95,122,0.85);
+    margin-bottom: 0.75rem;
   }
 
-  .tier-features li::before {
-    content: '✓ ';
-    color: #d4af37;
-    margin-right: 8px;
-    font-weight: bold;
+  .pricing-check {
+    flex-shrink: 0;
+    margin-top: 3px;
+    width: 14px;
+    height: 14px;
+    color: #8bc34a;
   }
 
-  .tier-cta {
-    width: 100%;
-    background-color: #1a1f3a;
-    color: #d4af37;
-    border: 1px solid #1a1f3a;
-    padding: 10px;
+  .pricing-btn {
+    display: block;
+    margin-top: 2rem;
+    padding: 14px 24px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
     cursor: pointer;
-    font-size: 13px;
-    margin-top: 1rem;
-    transition: all 0.2s ease;
+    transition: background 0.2s, color 0.2s;
+    border: 1px solid #1a5f7a;
+    background: #fff;
+    color: #1a5f7a;
   }
 
-  .tier-cta:hover {
-    opacity: 0.9;
+  .pricing-btn:hover {
+    background: #1a5f7a;
+    color: #fff;
   }
 
-  .pricing-tier.featured .tier-cta {
-    background-color: #d4af37;
-    color: #1a1f3a;
+  .pricing-btn--recommended {
+    background: #8bc34a;
+    border-color: #8bc34a;
+    color: #fff;
   }
 
-  @media (max-width: 768px) {
+  .pricing-btn--recommended:hover {
+    background: #7cb53d;
+    border-color: #7cb53d;
+    color: #fff;
+  }
+
+  @media (max-width: 860px) {
     .pricing-grid {
       grid-template-columns: 1fr;
-      gap: 1.5rem;
+      max-width: 420px;
     }
-
-    .section-pricing {
-      padding: 2rem 1.5rem;
-    }
-
-    .pricing-title {
-      font-size: 22px;
-    }
-
-    .tier-cta {
-      width: 100%;
+    .pricing-card--recommended {
+      margin-top: 0;
     }
   }
 </style>
 
-<section class="section-pricing">
-  <div class="container">
-    <h2 class="pricing-title">{{ section.settings.section_title }}</h2>
-    <div class="pricing-grid">
-      {% if section.settings.product_1 %}
-        <div class="pricing-tier">
-          <h3 class="tier-title">{{ section.settings.product_1.title }}</h3>
-          <div class="tier-price">
-            ${{ section.settings.product_1.price | money_without_currency | remove: '.00' }}
-            <span class="tier-price-currency">USD</span>
-          </div>
-          <ul class="tier-features">
-            <li>Complete 249-page 2026 Master Guide</li>
-            <li>Full 24-country operational directory</li>
-            <li>License reciprocity mappings</li>
-            <li>Complete customs clearing corridors</li>
-          </ul>
-          <a href="{{ section.settings.product_1.url }}" class="tier-cta">Purchase Manual</a>
-        </div>
-      {% endif %}
+<section class="section-pricing" id="pricing">
+  <div class="pricing-header">
+    <p class="pricing-eyebrow">{{ section.settings.eyebrow }}</p>
+    <h2 class="pricing-headline">{{ section.settings.headline | escape }}</h2>
+    <div class="pricing-rule"></div>
+  </div>
 
-      {% if section.settings.product_2 %}
-        <div class="pricing-tier featured">
-          <h3 class="tier-title">{{ section.settings.product_2.title }}</h3>
-          <div class="tier-price">
-            ${{ section.settings.product_2.price | money_without_currency | remove: '.00' }}
-            <span class="tier-price-currency">USD</span>
-          </div>
-          <ul class="tier-features">
-            <li>Everything in the Entry Manual</li>
-            <li>Interactive personal visa points calculator sheets</li>
-            <li>Structural credential tracking templates</li>
-            <li>Printable pre-flight 30/60/90 checklist workbook</li>
-          </ul>
-          <a href="{{ section.settings.product_2.url }}" class="tier-cta">Get Bundle</a>
-        </div>
-      {% endif %}
+  <div class="pricing-grid">
 
-      {% if section.settings.product_3 %}
-        <div class="pricing-tier">
-          <h3 class="tier-title">{{ section.settings.product_3.title }}</h3>
-          <div class="tier-price">
-            ${{ section.settings.product_3.price | money_without_currency | remove: '.00' }}
-            <span class="tier-price-currency">USD</span>
-          </div>
-          <ul class="tier-features">
-            <li>The complete digital bundle</li>
-            <li>Private access to our premium global mobility network forum</li>
-            <li>Prioritized data update alerts</li>
-            <li>Customized relocation milestone audit matrix</li>
-          </ul>
-          <a href="{{ section.settings.product_3.url }}" class="tier-cta">Get Concierge Access</a>
-        </div>
-      {% endif %}
+    <!-- TIER 1: Entry Manual — $27 — ACTIVE -->
+    <div class="pricing-card">
+      <h3 class="pricing-name">The Entry Manual</h3>
+      <div class="pricing-name-rule"></div>
+      <div class="pricing-price-row">
+        <span class="pricing-price">$27</span>
+        <span class="pricing-currency">USD</span>
+      </div>
+      <ul class="pricing-features">
+        <li>
+          <svg class="pricing-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          Complete 249-page 2026 Master Guide
+        </li>
+        <li>
+          <svg class="pricing-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          Full 24-country operational directory
+        </li>
+        <li>
+          <svg class="pricing-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          License reciprocity mappings
+        </li>
+        <li>
+          <svg class="pricing-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          Complete customs clearing corridors
+        </li>
+      </ul>
+      <a href="/cart/54399534563633:1" class="pricing-btn">Purchase Manual</a>
     </div>
+
+    <!-- TIER 2: Blueprint Bundle — $97 — RECOMMENDED -->
+    <div class="pricing-card pricing-card--recommended">
+      <span class="pricing-badge">Recommended</span>
+      <h3 class="pricing-name">The Blueprint Bundle</h3>
+      <div class="pricing-name-rule"></div>
+      <div class="pricing-price-row">
+        <span class="pricing-price">$97</span>
+        <span class="pricing-currency">USD</span>
+      </div>
+      <ul class="pricing-features">
+        <li>
+          <svg class="pricing-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          Everything in the Entry Manual
+        </li>
+        <li>
+          <svg class="pricing-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          Interactive personal visa points calculator sheets
+        </li>
+        <li>
+          <svg class="pricing-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          Structural credential tracking templates
+        </li>
+        <li>
+          <svg class="pricing-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          Printable pre-flight 30/60/90 checklist workbook
+        </li>
+      </ul>
+      <a href="/cart/54412851609905:1" class="pricing-btn pricing-btn--recommended">Get Bundle</a>
+    </div>
+
+    <!-- TIER 3: Concierge — $297 -->
+    <div class="pricing-card">
+      <h3 class="pricing-name">The Concierge Stream</h3>
+      <div class="pricing-name-rule"></div>
+      <div class="pricing-price-row">
+        <span class="pricing-price">$297</span>
+        <span class="pricing-currency">USD</span>
+      </div>
+      <ul class="pricing-features">
+        <li>
+          <svg class="pricing-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          The complete digital bundle
+        </li>
+        <li>
+          <svg class="pricing-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          Private access to our premium global mobility network forum
+        </li>
+        <li>
+          <svg class="pricing-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          Prioritized data update alerts
+        </li>
+        <li>
+          <svg class="pricing-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          Customized relocation milestone audit matrix
+        </li>
+      </ul>
+      <a href="/cart/54412852166961:1" class="pricing-btn">Get Concierge Access</a>
+    </div>
+
   </div>
 </section>

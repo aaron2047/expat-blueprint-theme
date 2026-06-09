@@ -1,18 +1,24 @@
 {% schema %}
 {
-  "name": "Header",
+  "name": "Sticky Header",
   "class": "section-header",
   "settings": [
     {
       "type": "text",
-      "id": "logo_text",
-      "label": "Logo Text",
+      "id": "brand_name",
+      "label": "Brand Name",
       "default": "THE EXPAT BLUEPRINT"
     },
     {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Button Text",
+      "default": "Secure Guide — $27"
+    },
+    {
       "type": "url",
-      "id": "logo_link",
-      "label": "Logo Link"
+      "id": "cta_link",
+      "label": "CTA Button Link"
     }
   ]
 }
@@ -20,96 +26,249 @@
 
 <style>
   .section-header {
-    background-color: #1a1f3a;
-    color: #f9f7f3;
-    padding: 1.5rem 2rem;
     position: sticky;
     top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 40;
+    width: 100%;
+    border-bottom: 1px solid #e6e8ea;
+    background: rgba(252,253,253,0.90);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
 
-  .header-container {
-    max-width: 1200px;
+  .header-inner {
+    max-width: 1280px;
     margin: 0 auto;
+    height: 64px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 2rem;
   }
 
-  .header-logo {
-    font-family: Georgia, serif;
-    font-size: 18px;
-    margin-bottom: 1rem;
-    letter-spacing: 0.5px;
-    color: #f9f7f3;
-  }
-
-  .header-logo a {
-    color: #f9f7f3;
+  /* Brand */
+  .header-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     text-decoration: none;
   }
 
-  .header-logo a:hover {
-    color: #d4af37;
+  .header-brand-name {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    color: #1a5f7a;
   }
 
+  .header-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #8bc34a;
+    flex-shrink: 0;
+  }
+
+  /* Desktop nav */
   .header-nav {
     display: flex;
+    align-items: center;
     gap: 2rem;
-    font-size: 13px;
-    flex-wrap: wrap;
   }
 
   .header-nav a {
-    color: #d4af37;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(26,95,122,0.8);
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: color 0.2s;
   }
 
-  .header-nav a:hover {
-    color: #e5c24a;
-    text-decoration: underline;
+  .header-nav a:hover { color: #1a5f7a; }
+
+  /* CTA */
+  .header-cta {
+    background: #8bc34a;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
   }
 
-  @media (max-width: 768px) {
-    .section-header {
-      padding: 1.5rem 1.5rem;
-    }
+  .header-cta:hover { background: #7cb53d; }
 
-    .header-container {
-      flex-direction: column;
-      align-items: flex-start;
-    }
+  /* Hamburger */
+  .header-hamburger {
+    display: none;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #1a5f7a;
+    padding: 0;
+  }
 
-    .header-nav {
-      gap: 1.5rem;
-      width: 100%;
-      justify-content: flex-start;
-    }
+  /* Mobile drawer */
+  .header-mobile {
+    display: none;
+    border-top: 1px solid #e6e8ea;
+    background: #fcfdfd;
+  }
 
-    .header-logo {
-      margin-bottom: 1rem;
-      font-size: 16px;
-    }
+  .header-mobile.is-open {
+    display: block;
+  }
+
+  .header-mobile-nav {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0.5rem 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header-mobile-nav a {
+    padding: 0.75rem 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1a5f7a;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(26,95,122,0.08);
+  }
+
+  .header-mobile-nav a:last-of-type { border-bottom: none; }
+
+  .header-mobile-cta {
+    margin-top: 0.75rem;
+    background: #8bc34a;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+    display: block;
+  }
+
+  @media (max-width: 1024px) {
+    .header-nav   { display: none; }
+    .header-cta   { display: none; }
+    .header-hamburger { display: inline-flex; }
   }
 </style>
 
-<header class="section-header">
-  <div class="header-container">
-    <h1 class="header-logo">
-      {% if section.settings.logo_link %}
-        <a href="{{ section.settings.logo_link }}">{{ section.settings.logo_text }}</a>
-      {% else %}
-        {{ section.settings.logo_text }}
-      {% endif %}
-    </h1>
-    <nav class="header-nav">
+<header class="section-header" id="site-header">
+  <div class="header-inner">
+
+    <!-- Brand -->
+    <a href="#top" class="header-brand">
+      <span class="header-brand-name">{{ section.settings.brand_name }}</span>
+      <span class="header-dot" aria-hidden="true"></span>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="header-nav" aria-label="Main navigation">
       <a href="#pillars">The Pillars</a>
       <a href="#checklist">Free Checklist</a>
       <a href="#pricing">The Manual</a>
-      <a href="#eeat">Verification</a>
+      <a href="#verification">Verification Data</a>
+    </nav>
+
+    <!-- Desktop CTA + hamburger -->
+    <div style="display:flex;align-items:center;gap:12px;">
+      {% if section.settings.cta_link != blank %}
+        <a href="{{ section.settings.cta_link }}" class="header-cta">{{ section.settings.cta_text }}</a>
+      {% else %}
+        <a href="#pricing" class="header-cta">{{ section.settings.cta_text }}</a>
+      {% endif %}
+
+      <button
+        class="header-hamburger"
+        id="header-hamburger-{{ section.id }}"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+        aria-controls="header-mobile-{{ section.id }}"
+      >
+        <!-- Hamburger icon -->
+        <svg id="icon-menu-{{ section.id }}" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="3" y1="6"  x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+        <!-- Close icon (hidden by default) -->
+        <svg id="icon-close-{{ section.id }}" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;">
+          <line x1="18" y1="6"  x2="6"  y2="18"/>
+          <line x1="6"  y1="6"  x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile drawer -->
+  <div class="header-mobile" id="header-mobile-{{ section.id }}" aria-hidden="true">
+    <nav class="header-mobile-nav" aria-label="Mobile navigation">
+      <a href="#pillars"      data-mobile-link>The Pillars</a>
+      <a href="#checklist"    data-mobile-link>Free Checklist</a>
+      <a href="#pricing"      data-mobile-link>The Manual</a>
+      <a href="#verification" data-mobile-link>Verification Data</a>
+      {% if section.settings.cta_link != blank %}
+        <a href="{{ section.settings.cta_link }}" class="header-mobile-cta">{{ section.settings.cta_text }}</a>
+      {% else %}
+        <a href="#pricing" class="header-mobile-cta">{{ section.settings.cta_text }}</a>
+      {% endif %}
     </nav>
   </div>
 </header>
+
+<script>
+(function () {
+  var sectionId  = {{ section.id | json }};
+  var btn        = document.getElementById('header-hamburger-' + sectionId);
+  var drawer     = document.getElementById('header-mobile-'    + sectionId);
+  var iconMenu   = document.getElementById('icon-menu-'        + sectionId);
+  var iconClose  = document.getElementById('icon-close-'       + sectionId);
+
+  if (!btn || !drawer) return;
+
+  function closeMenu() {
+    drawer.classList.remove('is-open');
+    drawer.setAttribute('aria-hidden', 'true');
+    btn.setAttribute('aria-expanded', 'false');
+    iconMenu.style.display  = '';
+    iconClose.style.display = 'none';
+  }
+
+  btn.addEventListener('click', function () {
+    var isOpen = drawer.classList.contains('is-open');
+    if (isOpen) {
+      closeMenu();
+    } else {
+      drawer.classList.add('is-open');
+      drawer.setAttribute('aria-hidden', 'false');
+      btn.setAttribute('aria-expanded', 'true');
+      iconMenu.style.display  = 'none';
+      iconClose.style.display = '';
+    }
+  });
+
+  // Close on any mobile nav link click
+  drawer.querySelectorAll('[data-mobile-link], .header-mobile-cta').forEach(function (link) {
+    link.addEventListener('click', closeMenu);
+  });
+})();
+</script>

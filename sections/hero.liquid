@@ -5,15 +5,27 @@
   "settings": [
     {
       "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "2026 Fully Updated Compliance Manual"
+    },
+    {
+      "type": "text",
       "id": "headline",
       "label": "Headline",
-      "default": "Stop Guessing.\nStart Operating."
+      "default": "Stop Guessing. Start Operating."
     },
     {
       "type": "textarea",
-      "id": "description",
-      "label": "Description",
+      "id": "subhead",
+      "label": "Subheadline (italic)",
       "default": "The 2026 guide to the countries Americans can actually move to — matched to what you do for a living, with the visas, the costs, and the legal fine print spelled out."
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body Copy",
+      "default": "Most expat guides tell you how to pack a bag, find a rental, and order a coffee in a foreign language. This is not one of those guides. For the healthcare professional, the licensed tradesperson, and the skilled specialist, relocation isn't just a lifestyle choice — it's a regulatory compliance puzzle. Your career is your greatest asset, your family is your priority, and a vague \"hope for the best\" strategy is a liability."
     },
     {
       "type": "text",
@@ -27,16 +39,10 @@
       "label": "CTA Button Link"
     },
     {
-      "type": "color",
-      "id": "bg_color",
-      "label": "Background Color",
-      "default": "#1a1f3a"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text Color",
-      "default": "#f9f7f3"
+      "type": "text",
+      "id": "cta_sub",
+      "label": "CTA Subtext",
+      "default": "✓ Instant Secure PDF Download. Optimized for Mobile, Desktop, & E-Readers."
     }
   ]
 }
@@ -44,63 +50,295 @@
 
 <style>
   .section-hero {
-    background: linear-gradient(135deg, {{ section.settings.bg_color }} 0%, #2d2f47 100%);
-    color: {{ section.settings.text_color }};
-    padding: 4rem 2rem;
-    text-align: center;
+    background: #fff;
+    border-bottom: 1px solid #e6e8ea;
+    padding: 5rem 2rem;
+  }
+
+  .hero-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .hero-eyebrow {
+    font-size: 8.5px;
+    font-weight: 600;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: #1a5f7a;
+    margin-bottom: 1.5rem;
   }
 
   .hero-headline {
-    font-family: Georgia, serif;
-    font-size: 48px;
-    font-weight: normal;
-    margin-bottom: 1.5rem;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(36px, 4vw, 52px);
+    font-weight: 700;
+    line-height: 1.05;
     letter-spacing: -0.5px;
-    line-height: 1.2;
+    color: #1a5f7a;
+    margin: 0 0 0.5rem;
   }
 
-  .hero-description {
-    font-size: 16px;
-    max-width: 600px;
-    margin: 0 auto 2rem;
-    opacity: 0.95;
-    line-height: 1.8;
+  .hero-divider {
+    width: 40px;
+    height: 3px;
+    background: #8bc34a;
+    margin: 1rem 0;
+  }
+
+  .hero-subhead {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 14px;
+    font-weight: 500;
+    font-style: italic;
+    color: rgba(26,95,122,0.85);
+    line-height: 1.55;
+    margin-bottom: 1.75rem;
+  }
+
+  .hero-body {
+    font-size: 15px;
+    color: rgba(26,95,122,0.8);
+    line-height: 1.7;
+    margin-bottom: 2.25rem;
+    max-width: 60ch;
+    text-align: justify;
   }
 
   .hero-cta {
-    background-color: #d4af37;
-    color: {{ section.settings.bg_color }};
-    padding: 12px 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #8bc34a;
+    color: #fff;
+    padding: 16px 32px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
     border: none;
-    font-weight: 500;
     cursor: pointer;
-    border-radius: 0;
-    font-size: 14px;
-    letter-spacing: 0.5px;
-    transition: background-color 0.2s ease;
+    box-shadow: 0 10px 30px -12px rgba(139,195,74,0.65);
+    transition: background 0.2s, box-shadow 0.2s;
   }
 
   .hero-cta:hover {
-    background-color: #e5c24a;
+    background: #7cb53d;
+    box-shadow: 0 14px 36px -12px rgba(139,195,74,0.7);
   }
 
-  @media (max-width: 768px) {
-    .section-hero {
-      padding: 3rem 1.5rem;
-    }
+  .hero-cta-sub {
+    display: block;
+    margin-top: 0.75rem;
+    font-size: 11px;
+    color: #2d3142;
+    opacity: 0.6;
+  }
 
-    .hero-headline {
-      font-size: 32px;
+  /* ── 3-D Book ── */
+  .book-wrap {
+    perspective: 1800px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .book-3d {
+    position: relative;
+    aspect-ratio: 8.5 / 11;
+    width: 100%;
+    max-width: 420px;
+    transform-origin: center;
+    transform: rotateY(-14deg) rotateX(4deg);
+    transform-style: preserve-3d;
+    transition: transform 0.7s ease-out;
+    will-change: transform;
+    box-shadow:
+      0 30px 60px -20px rgba(26,95,122,0.45),
+      0 18px 36px -18px rgba(0,0,0,0.25);
+  }
+
+  .book-3d:hover {
+    transform: rotateY(-6deg) rotateX(2deg);
+  }
+
+  .book-spine {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -8px;
+    width: 8px;
+    background: #0f4a60;
+    transform: translateZ(-2px);
+  }
+
+  .book-cover {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background: #1a5f7a;
+    padding: 36px 28px;
+    color: #fff;
+    box-sizing: border-box;
+  }
+
+  .book-meta-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .book-body {
+    margin-top: 48px;
+    flex: 1;
+  }
+
+  .book-compliance-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .book-title {
+    margin-top: 24px;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.5px;
+    color: #fff;
+  }
+
+  .book-rule {
+    margin-top: 28px;
+    height: 3px;
+    width: 96px;
+    background: #8bc34a;
+  }
+
+  .book-tagline {
+    margin-top: 20px;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 13px;
+    font-style: italic;
+    line-height: 1.5;
+    color: rgba(255,255,255,0.85);
+    max-width: 18ch;
+  }
+
+  .book-chart {
+    margin-top: 32px;
+    width: 100%;
+    height: 80px;
+  }
+
+  .book-footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 16px;
+    margin-top: auto;
+  }
+
+  .book-footer-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .book-domain {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 11px;
+    font-style: italic;
+    color: rgba(255,255,255,0.8);
+  }
+
+  @media (max-width: 860px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: 3rem;
     }
+    .hero-headline { font-size: 36px; }
+    .book-wrap { order: -1; }
+    .book-3d { max-width: 280px; }
+    .hero-body { text-align: left; }
   }
 </style>
 
 <section class="section-hero">
-  <div class="container">
-    <h1 class="hero-headline">{{ section.settings.headline | escape }}</h1>
-    <p class="hero-description">{{ section.settings.description }}</p>
-    {% if section.settings.cta_link %}
-      <a href="{{ section.settings.cta_link }}" class="hero-cta">{{ section.settings.cta_text }}</a>
-    {% endif %}
+  <div class="hero-inner">
+
+    <!-- LEFT: copy -->
+    <div class="hero-copy">
+      <p class="hero-eyebrow">{{ section.settings.eyebrow }}</p>
+      <h1 class="hero-headline">{{ section.settings.headline | escape }}</h1>
+      <div class="hero-divider"></div>
+      <p class="hero-subhead">{{ section.settings.subhead }}</p>
+      <p class="hero-body">{{ section.settings.body }}</p>
+      {% if section.settings.cta_link != blank %}
+        <a href="{{ section.settings.cta_link }}" class="hero-cta">{{ section.settings.cta_text }}</a>
+      {% else %}
+        <a href="#pricing" class="hero-cta">{{ section.settings.cta_text }}</a>
+      {% endif %}
+      <span class="hero-cta-sub">{{ section.settings.cta_sub }}</span>
+    </div>
+
+    <!-- RIGHT: 3-D Book (pure CSS/SVG — no image needed) -->
+    <div class="book-wrap">
+      <div class="book-3d">
+        <div class="book-spine" aria-hidden="true"></div>
+        <div class="book-cover">
+
+          <div class="book-meta-row">
+            <span>2026 Edition</span>
+            <span>Vol. I</span>
+          </div>
+
+          <div class="book-body">
+            <p class="book-compliance-label">A Compliance Manual For</p>
+            <h2 class="book-title">THE<br>EXPAT<br>BLUEPRINT</h2>
+            <div class="book-rule"></div>
+            <p class="book-tagline">The 2026 manual for skilled Americans relocating abroad.</p>
+
+            <svg class="book-chart" viewBox="0 0 300 90" fill="none" stroke="currentColor" aria-hidden="true">
+              <g stroke="rgba(255,255,255,0.25)" stroke-width="0.5">
+                <line x1="0" y1="22" x2="300" y2="22"/>
+                <line x1="0" y1="45" x2="300" y2="45"/>
+                <line x1="0" y1="68" x2="300" y2="68"/>
+              </g>
+              <polyline
+                points="0,70 30,62 60,66 90,48 120,52 150,34 180,40 210,22 240,28 270,14 300,18"
+                stroke="#8bc34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <polyline
+                points="0,80 30,76 60,72 90,70 120,66 150,60 180,58 210,52 240,48 270,42 300,38"
+                stroke="rgba(255,255,255,0.6)" stroke-width="1" stroke-dasharray="3 3" fill="none"/>
+            </svg>
+          </div>
+
+          <div class="book-footer-row">
+            <span class="book-footer-label">Operational. Audited. Current.</span>
+            <span class="book-domain">expatblueprint.store</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>

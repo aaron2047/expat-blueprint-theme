@@ -1,8 +1,14 @@
 {% schema %}
 {
-  "name": "Checklist CTA Section",
-  "class": "section-checklist-cta",
+  "name": "Lead Magnet / Checklist CTA",
+  "class": "section-checklist",
   "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Free Pre-Flight Asset"
+    },
     {
       "type": "text",
       "id": "headline",
@@ -11,9 +17,9 @@
     },
     {
       "type": "textarea",
-      "id": "description",
-      "label": "Description",
-      "default": "Before you fly, you need to run your document verification. Enter your email to receive our standalone guide: 'The 2026 Accelerated Pathway Checklist for US Nurses Moving to Australia' — detailing exact AHPRA fast-track rules, necessary hour logs, and certified translation requirements."
+      "id": "body",
+      "label": "Body Copy",
+      "default": "Before you fly, you need to run your document verification. Enter your email to receive our standalone guide: \"The 2026 Accelerated Pathway Checklist for US Nurses Moving to Australia\" — detailing exact AHPRA fast-track rules, necessary hour logs, and certified translation requirements."
     },
     {
       "type": "text",
@@ -23,113 +29,252 @@
     },
     {
       "type": "text",
-      "id": "email_placeholder",
-      "label": "Email Placeholder",
-      "default": "your@email.com"
+      "id": "formspree_id",
+      "label": "Formspree Form ID",
+      "info": "Create a free form at formspree.io. Paste only the ID (e.g. xpwzabcd) — not the full URL.",
+      "default": "YOUR_FORMSPREE_ID"
+    },
+    {
+      "type": "text",
+      "id": "success_msg",
+      "label": "Success Message",
+      "default": "Sent. Check your inbox for the checklist."
     }
   ]
 }
 {% endschema %}
 
 <style>
-  .section-checklist-cta {
-    background-color: #1a1f3a;
-    color: #f9f7f3;
-    padding: 3rem 2rem;
-    text-align: center;
+  .section-checklist {
+    background: #fcfdfd;
+    padding: 6rem 2rem;
+    border-top: 1px solid rgba(26,95,122,0.08);
+    border-bottom: 1px solid rgba(26,95,122,0.08);
+  }
+
+  .checklist-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .checklist-eyebrow {
+    font-size: 8.5px;
+    font-weight: 600;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(26,95,122,0.7);
+    margin: 0 0 1rem;
   }
 
   .checklist-headline {
-    font-family: Georgia, serif;
-    font-size: 24px;
-    margin-bottom: 1rem;
-    font-weight: normal;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(24px, 3vw, 34px);
+    font-weight: 700;
+    line-height: 1.2;
+    color: #1a5f7a;
+    margin: 0 0 1.25rem;
   }
 
-  .checklist-description {
-    font-size: 14px;
-    margin-bottom: 1.5rem;
-    line-height: 1.8;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
+  .checklist-rule {
+    width: 48px;
+    height: 2px;
+    background: #8bc34a;
+  }
+
+  .checklist-body {
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: rgba(26,95,122,0.85);
+    text-align: justify;
+    margin: 0 0 1.75rem;
+  }
+
+  .checklist-body em {
+    font-family: Georgia, 'Times New Roman', serif;
   }
 
   .checklist-form {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    max-width: 600px;
-    margin: 0 auto;
+    flex-direction: row;
+    border: 1px solid rgba(26,95,122,0.15);
+    background: #fff;
+    overflow: hidden;
   }
 
   .checklist-input {
-    padding: 10px 12px;
-    border: 0.5px solid #d4af37;
-    background-color: #f9f7f3;
-    color: #1a1f3a;
-    font-size: 14px;
     flex: 1;
-    min-width: 200px;
+    border: none;
+    outline: none;
+    padding: 16px 20px;
+    font-size: 14px;
+    color: #1a5f7a;
+    background: #fff;
   }
 
   .checklist-input::placeholder {
-    color: #ccc;
+    color: rgba(26,95,122,0.45);
   }
 
-  .checklist-input:focus {
-    outline: none;
-    border-color: #e5c24a;
-    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+  .checklist-input:disabled {
+    opacity: 0.5;
   }
 
-  .checklist-button {
-    background-color: transparent;
-    color: #d4af37;
-    border: 1px solid #d4af37;
-    padding: 10px 20px;
+  .checklist-btn {
+    background: #1a5f7a;
+    color: #fff;
+    border: none;
+    padding: 16px 28px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
     cursor: pointer;
-    font-size: 13px;
-    transition: all 0.2s ease;
+    transition: background 0.2s;
     white-space: nowrap;
   }
 
-  .checklist-button:hover {
-    background-color: #d4af37;
-    color: #1a1f3a;
+  .checklist-btn:hover:not(:disabled) { background: #13495e; }
+  .checklist-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .checklist-success {
+    display: none;
+    margin-top: 1.75rem;
+    border-left: 2px solid #8bc34a;
+    background: #fff;
+    padding: 1rem 1.25rem;
+    font-size: 13px;
+    color: #1a5f7a;
   }
 
-  @media (max-width: 768px) {
-    .section-checklist-cta {
-      padding: 2rem 1.5rem;
-    }
+  .checklist-error {
+    display: none;
+    margin-top: 0.75rem;
+    font-size: 12px;
+    color: #c0392b;
+  }
 
+  @media (max-width: 760px) {
+    .checklist-inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
     .checklist-form {
       flex-direction: column;
     }
-
-    .checklist-input,
-    .checklist-button {
-      width: 100%;
+    .checklist-btn {
+      padding: 14px 20px;
     }
   }
 </style>
 
-<section class="section-checklist-cta">
-  <div class="container">
-    <h2 class="checklist-headline">{{ section.settings.headline }}</h2>
-    <p class="checklist-description">{{ section.settings.description }}</p>
-    <form class="checklist-form" action="#" method="POST">
-      <input 
-        type="email" 
-        class="checklist-input" 
-        placeholder="{{ section.settings.email_placeholder }}" 
-        required 
-        name="email"
+<section class="section-checklist" id="checklist">
+  <div class="checklist-inner">
+
+    <!-- LEFT: heading -->
+    <div>
+      <p class="checklist-eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="checklist-headline">{{ section.settings.headline | escape }}</h2>
+      <div class="checklist-rule"></div>
+    </div>
+
+    <!-- RIGHT: body + form -->
+    <div>
+      <p class="checklist-body">{{ section.settings.body }}</p>
+
+      <div id="checklist-form-wrap-{{ section.id }}">
+        <form
+          class="checklist-form"
+          id="checklist-form-{{ section.id }}"
+          novalidate
+        >
+          <input
+            class="checklist-input"
+            type="email"
+            name="email"
+            required
+            placeholder="Enter your professional email address"
+            autocomplete="email"
+          />
+          <button class="checklist-btn" type="submit">
+            {{ section.settings.button_text }}
+          </button>
+        </form>
+        <p class="checklist-error" id="checklist-error-{{ section.id }}"></p>
+      </div>
+
+      <div
+        class="checklist-success"
+        id="checklist-success-{{ section.id }}"
+        role="status"
+        aria-live="polite"
       >
-      <button type="submit" class="checklist-button">{{ section.settings.button_text }}</button>
-    </form>
+        ✓ {{ section.settings.success_msg }}
+      </div>
+    </div>
+
   </div>
 </section>
+
+<script>
+(function () {
+  var sectionId   = {{ section.id | json }};
+  var formspreeId = {{ section.settings.formspree_id | json }};
+  var endpoint    = 'https://formspree.io/f/' + formspreeId;
+
+  var form        = document.getElementById('checklist-form-'    + sectionId);
+  var formWrap    = document.getElementById('checklist-form-wrap-' + sectionId);
+  var successEl   = document.getElementById('checklist-success-' + sectionId);
+  var errorEl     = document.getElementById('checklist-error-'   + sectionId);
+  var btn         = form ? form.querySelector('button[type="submit"]') : null;
+  var input       = form ? form.querySelector('input[type="email"]') : null;
+  var origLabel   = btn ? btn.textContent : '';
+
+  if (!form) return;
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    errorEl.style.display = 'none';
+
+    var email = input.value.trim();
+    if (!email) return;
+
+    if (formspreeId === 'YOUR_FORMSPREE_ID') {
+      errorEl.textContent = 'Email endpoint not configured yet.';
+      errorEl.style.display = 'block';
+      return;
+    }
+
+    btn.disabled   = true;
+    input.disabled = true;
+    btn.textContent = 'Sending\u2026';
+
+    fetch(endpoint, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body:    JSON.stringify({ email: email })
+    })
+    .then(function (res) {
+      if (res.ok) {
+        formWrap.style.display   = 'none';
+        successEl.style.display  = 'block';
+        successEl.innerHTML = '\u2713 Sent. Check <strong>' + email + '</strong> for your checklist.';
+      } else {
+        return res.json().then(function (data) {
+          throw new Error(data.error || 'Something went wrong. Please try again.');
+        });
+      }
+    })
+    .catch(function (err) {
+      errorEl.textContent    = err.message || 'Network error. Please try again.';
+      errorEl.style.display  = 'block';
+      btn.disabled           = false;
+      input.disabled         = false;
+      btn.textContent        = origLabel;
+    });
+  });
+})();
+</script>

@@ -1,46 +1,25 @@
 {% schema %}
 {
-  "name": "Three Pillars Section",
+  "name": "Pillars Grid",
   "class": "section-pillars",
   "settings": [
     {
       "type": "text",
-      "id": "section_title",
-      "label": "Section Title",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "The Three Pillars"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
       "default": "Engineered for Execution, Not Browsing"
     },
     {
-      "type": "text",
-      "id": "pillar_1_title",
-      "label": "Pillar 1 Title",
-      "default": "Healthcare Brackets"
-    },
-    {
       "type": "textarea",
-      "id": "pillar_1_description",
-      "label": "Pillar 1 Description"
-    },
-    {
-      "type": "text",
-      "id": "pillar_2_title",
-      "label": "Pillar 2 Title",
-      "default": "Technical Trades"
-    },
-    {
-      "type": "textarea",
-      "id": "pillar_2_description",
-      "label": "Pillar 2 Description"
-    },
-    {
-      "type": "text",
-      "id": "pillar_3_title",
-      "label": "Pillar 3 Title",
-      "default": "Jurisdictional Compliance"
-    },
-    {
-      "type": "textarea",
-      "id": "pillar_3_description",
-      "label": "Pillar 3 Description"
+      "id": "subhead",
+      "label": "Subheadline",
+      "default": "Approach this manual not as a travel blog, but as a strict compliance checklist for your family's relocation pipeline."
     }
   ]
 }
@@ -48,93 +27,162 @@
 
 <style>
   .section-pillars {
-    padding: 4rem 2rem;
-    background-color: #f9f7f3;
+    background: #fcfdfd;
+    padding: 6rem 2rem;
+    border-bottom: 1px solid #e6e8ea;
   }
 
-  .pillars-title {
-    font-family: Georgia, serif;
-    font-size: 28px;
+  .pillars-header {
+    max-width: 720px;
+    margin: 0 auto 4rem;
     text-align: center;
-    margin-bottom: 3rem;
-    color: #1a1f3a;
+  }
+
+  .pillars-eyebrow {
+    font-size: 8.5px;
+    font-weight: 600;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(26,95,122,0.7);
+    margin: 0 0 1.25rem;
+  }
+
+  .pillars-headline {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(28px, 3.5vw, 40px);
+    font-weight: 700;
+    line-height: 1.15;
+    color: #1a5f7a;
+    margin: 0 0 1.25rem;
+  }
+
+  .pillars-rule {
+    width: 56px;
+    height: 2px;
+    background: #8bc34a;
+    margin: 0 auto 1.5rem;
+  }
+
+  .pillars-subhead {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 15px;
+    font-style: italic;
+    line-height: 1.7;
+    color: rgba(26,95,122,0.75);
+    margin: 0;
   }
 
   .pillars-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
     max-width: 1200px;
     margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: #e6e8ea;
+    border: 1px solid #e6e8ea;
+    overflow: hidden;
   }
 
-  .pillar {
-    background-color: #ffffff;
-    border: 0.5px solid #e5dcd0;
-    padding: 2rem;
-    transition: box-shadow 0.2s ease;
+  .pillar-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    padding: 2.5rem;
   }
 
-  .pillar:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  .pillar-number-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 1.25rem;
   }
 
   .pillar-number {
-    font-family: Georgia, serif;
-    font-size: 24px;
-    color: #d4af37;
-    margin-bottom: 0.5rem;
-    font-weight: normal;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1;
+    color: #8bc34a;
+  }
+
+  .pillar-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(26,95,122,0.6);
   }
 
   .pillar-title {
-    font-family: Georgia, serif;
-    font-size: 18px;
-    color: #1a1f3a;
-    margin-bottom: 1rem;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #1a5f7a;
+    margin: 0 0 1rem;
   }
 
-  .pillar-description {
+  .pillar-rule {
+    width: 40px;
+    height: 2px;
+    background: rgba(26,95,122,0.2);
+    margin-bottom: 1.25rem;
+  }
+
+  .pillar-body {
     font-size: 14px;
     line-height: 1.7;
-    color: #666666;
+    color: rgba(26,95,122,0.8);
+    text-align: justify;
+    margin: 0;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 860px) {
     .pillars-grid {
       grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-
-    .section-pillars {
-      padding: 2rem 1.5rem;
-    }
-
-    .pillars-title {
-      font-size: 22px;
     }
   }
 </style>
 
-<section class="section-pillars">
-  <div class="container">
-    <h2 class="pillars-title">{{ section.settings.section_title }}</h2>
-    <div class="pillars-grid">
-      <div class="pillar">
-        <div class="pillar-number">01</div>
-        <h3 class="pillar-title">{{ section.settings.pillar_1_title }}</h3>
-        <p class="pillar-description">{{ section.settings.pillar_1_description }}</p>
+<section class="section-pillars" id="pillars">
+  <div class="pillars-header">
+    <p class="pillars-eyebrow">{{ section.settings.eyebrow }}</p>
+    <h2 class="pillars-headline">{{ section.settings.headline | escape }}</h2>
+    <div class="pillars-rule"></div>
+    <p class="pillars-subhead">{{ section.settings.subhead }}</p>
+  </div>
+
+  <div class="pillars-grid">
+
+    <article class="pillar-card">
+      <div class="pillar-number-row">
+        <span class="pillar-number">01</span>
+        <span class="pillar-label">· Pillar</span>
       </div>
-      <div class="pillar">
-        <div class="pillar-number">02</div>
-        <h3 class="pillar-title">{{ section.settings.pillar_2_title }}</h3>
-        <p class="pillar-description">{{ section.settings.pillar_2_description }}</p>
+      <h3 class="pillar-title">Healthcare Brackets</h3>
+      <div class="pillar-rule"></div>
+      <p class="pillar-body">If you are a registered nurse or midwife, the global shortage math is in your favor. This blueprint breaks down the precise healthcare priority visa draws clearing at historically low thresholds, streamlined cross-border CUSMA work passes, and parallel timelines to execute credential recognition and licensing simultaneously.</p>
+    </article>
+
+    <article class="pillar-card">
+      <div class="pillar-number-row">
+        <span class="pillar-number">02</span>
+        <span class="pillar-label">· Pillar</span>
       </div>
-      <div class="pillar">
-        <div class="pillar-number">03</div>
-        <h3 class="pillar-title">{{ section.settings.pillar_3_title }}</h3>
-        <p class="pillar-description">{{ section.settings.pillar_3_description }}</p>
+      <h3 class="pillar-title">Technical Trades</h3>
+      <div class="pillar-rule"></div>
+      <p class="pillar-body">Built for electricians, plumbers, carpenters, and advanced welders looking to translate their local credentials into international leverage. Map your training history directly to national qualification gates — including the Canadian Red Seal standard, Australian TRA skills assessments, and Germany's Opportunity Card framework.</p>
+    </article>
+
+    <article class="pillar-card">
+      <div class="pillar-number-row">
+        <span class="pillar-number">03</span>
+        <span class="pillar-label">· Pillar</span>
       </div>
-    </div>
+      <h3 class="pillar-title">Jurisdictional Compliance</h3>
+      <div class="pillar-rule"></div>
+      <p class="pillar-body">A cross-cutting operational framework for relocating families. Bypasses lifestyle blogs to manage the real-world logistics that make or break a move: localized international driving license reciprocity tiers, portable curriculum mapping (IB/American standard), and 2026 container shipping lane cost dynamics.</p>
+    </article>
+
   </div>
 </section>
