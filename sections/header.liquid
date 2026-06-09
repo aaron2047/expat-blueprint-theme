@@ -1,0 +1,115 @@
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo Text",
+      "default": "THE EXPAT BLUEPRINT"
+    },
+    {
+      "type": "url",
+      "id": "logo_link",
+      "label": "Logo Link"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .section-header {
+    background-color: #1a1f3a;
+    color: #f9f7f3;
+    padding: 1.5rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .header-logo {
+    font-family: Georgia, serif;
+    font-size: 18px;
+    margin-bottom: 1rem;
+    letter-spacing: 0.5px;
+    color: #f9f7f3;
+  }
+
+  .header-logo a {
+    color: #f9f7f3;
+    text-decoration: none;
+  }
+
+  .header-logo a:hover {
+    color: #d4af37;
+  }
+
+  .header-nav {
+    display: flex;
+    gap: 2rem;
+    font-size: 13px;
+    flex-wrap: wrap;
+  }
+
+  .header-nav a {
+    color: #d4af37;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .header-nav a:hover {
+    color: #e5c24a;
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .section-header {
+      padding: 1.5rem 1.5rem;
+    }
+
+    .header-container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .header-nav {
+      gap: 1.5rem;
+      width: 100%;
+      justify-content: flex-start;
+    }
+
+    .header-logo {
+      margin-bottom: 1rem;
+      font-size: 16px;
+    }
+  }
+</style>
+
+<header class="section-header">
+  <div class="header-container">
+    <h1 class="header-logo">
+      {% if section.settings.logo_link %}
+        <a href="{{ section.settings.logo_link }}">{{ section.settings.logo_text }}</a>
+      {% else %}
+        {{ section.settings.logo_text }}
+      {% endif %}
+    </h1>
+    <nav class="header-nav">
+      <a href="#pillars">The Pillars</a>
+      <a href="#checklist">Free Checklist</a>
+      <a href="#pricing">The Manual</a>
+      <a href="#eeat">Verification</a>
+    </nav>
+  </div>
+</header>

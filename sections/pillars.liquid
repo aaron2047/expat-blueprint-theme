@@ -1,0 +1,140 @@
+{% schema %}
+{
+  "name": "Three Pillars Section",
+  "class": "section-pillars",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Engineered for Execution, Not Browsing"
+    },
+    {
+      "type": "text",
+      "id": "pillar_1_title",
+      "label": "Pillar 1 Title",
+      "default": "Healthcare Brackets"
+    },
+    {
+      "type": "textarea",
+      "id": "pillar_1_description",
+      "label": "Pillar 1 Description"
+    },
+    {
+      "type": "text",
+      "id": "pillar_2_title",
+      "label": "Pillar 2 Title",
+      "default": "Technical Trades"
+    },
+    {
+      "type": "textarea",
+      "id": "pillar_2_description",
+      "label": "Pillar 2 Description"
+    },
+    {
+      "type": "text",
+      "id": "pillar_3_title",
+      "label": "Pillar 3 Title",
+      "default": "Jurisdictional Compliance"
+    },
+    {
+      "type": "textarea",
+      "id": "pillar_3_description",
+      "label": "Pillar 3 Description"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .section-pillars {
+    padding: 4rem 2rem;
+    background-color: #f9f7f3;
+  }
+
+  .pillars-title {
+    font-family: Georgia, serif;
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: #1a1f3a;
+  }
+
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .pillar {
+    background-color: #ffffff;
+    border: 0.5px solid #e5dcd0;
+    padding: 2rem;
+    transition: box-shadow 0.2s ease;
+  }
+
+  .pillar:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .pillar-number {
+    font-family: Georgia, serif;
+    font-size: 24px;
+    color: #d4af37;
+    margin-bottom: 0.5rem;
+    font-weight: normal;
+  }
+
+  .pillar-title {
+    font-family: Georgia, serif;
+    font-size: 18px;
+    color: #1a1f3a;
+    margin-bottom: 1rem;
+  }
+
+  .pillar-description {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #666666;
+  }
+
+  @media (max-width: 768px) {
+    .pillars-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .section-pillars {
+      padding: 2rem 1.5rem;
+    }
+
+    .pillars-title {
+      font-size: 22px;
+    }
+  }
+</style>
+
+<section class="section-pillars">
+  <div class="container">
+    <h2 class="pillars-title">{{ section.settings.section_title }}</h2>
+    <div class="pillars-grid">
+      <div class="pillar">
+        <div class="pillar-number">01</div>
+        <h3 class="pillar-title">{{ section.settings.pillar_1_title }}</h3>
+        <p class="pillar-description">{{ section.settings.pillar_1_description }}</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-number">02</div>
+        <h3 class="pillar-title">{{ section.settings.pillar_2_title }}</h3>
+        <p class="pillar-description">{{ section.settings.pillar_2_description }}</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-number">03</div>
+        <h3 class="pillar-title">{{ section.settings.pillar_3_title }}</h3>
+        <p class="pillar-description">{{ section.settings.pillar_3_description }}</p>
+      </div>
+    </div>
+  </div>
+</section>

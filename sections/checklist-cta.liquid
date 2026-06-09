@@ -1,0 +1,135 @@
+{% schema %}
+{
+  "name": "Checklist CTA Section",
+  "class": "section-checklist-cta",
+  "settings": [
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Get the Pre-Flight Blueprint Checklist Free"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Before you fly, you need to run your document verification. Enter your email to receive our standalone guide: 'The 2026 Accelerated Pathway Checklist for US Nurses Moving to Australia' — detailing exact AHPRA fast-track rules, necessary hour logs, and certified translation requirements."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Send Free Checklist"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email Placeholder",
+      "default": "your@email.com"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .section-checklist-cta {
+    background-color: #1a1f3a;
+    color: #f9f7f3;
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  .checklist-headline {
+    font-family: Georgia, serif;
+    font-size: 24px;
+    margin-bottom: 1rem;
+    font-weight: normal;
+  }
+
+  .checklist-description {
+    font-size: 14px;
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .checklist-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .checklist-input {
+    padding: 10px 12px;
+    border: 0.5px solid #d4af37;
+    background-color: #f9f7f3;
+    color: #1a1f3a;
+    font-size: 14px;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .checklist-input::placeholder {
+    color: #ccc;
+  }
+
+  .checklist-input:focus {
+    outline: none;
+    border-color: #e5c24a;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+  }
+
+  .checklist-button {
+    background-color: transparent;
+    color: #d4af37;
+    border: 1px solid #d4af37;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .checklist-button:hover {
+    background-color: #d4af37;
+    color: #1a1f3a;
+  }
+
+  @media (max-width: 768px) {
+    .section-checklist-cta {
+      padding: 2rem 1.5rem;
+    }
+
+    .checklist-form {
+      flex-direction: column;
+    }
+
+    .checklist-input,
+    .checklist-button {
+      width: 100%;
+    }
+  }
+</style>
+
+<section class="section-checklist-cta">
+  <div class="container">
+    <h2 class="checklist-headline">{{ section.settings.headline }}</h2>
+    <p class="checklist-description">{{ section.settings.description }}</p>
+    <form class="checklist-form" action="#" method="POST">
+      <input 
+        type="email" 
+        class="checklist-input" 
+        placeholder="{{ section.settings.email_placeholder }}" 
+        required 
+        name="email"
+      >
+      <button type="submit" class="checklist-button">{{ section.settings.button_text }}</button>
+    </form>
+  </div>
+</section>

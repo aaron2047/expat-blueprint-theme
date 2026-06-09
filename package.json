@@ -1,0 +1,20 @@
+{
+  "name": "expat-blueprint-theme",
+  "version": "1.0.0",
+  "description": "Custom Shopify theme for The Expat Blueprint — built from Lovable prototype",
+  "author": "Woolph Marketing",
+  "license": "MIT",
+  "scripts": {
+    "dev": "shopify theme dev",
+    "push": "shopify theme push",
+    "pull": "shopify theme pull",
+    "open": "shopify theme open"
+  },
+  "devDependencies": {
+    "@shopify/cli": "^3.59.0",
+    "@shopify/theme": "latest"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

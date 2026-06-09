@@ -1,0 +1,92 @@
+{% schema %}
+{
+  "name": "Footer",
+  "class": "section-footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright Text",
+      "default": "© 2026 The Expat Blueprint. All rights reserved."
+    },
+    {
+      "type": "textarea",
+      "id": "disclaimer",
+      "label": "Disclaimer",
+      "default": "This guide is for informational purposes only and is not legal, immigration, tax, or financial advice."
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .section-footer {
+    background-color: #1a1f3a;
+    color: #d4af37;
+    padding: 2rem;
+    text-align: center;
+    margin-top: 4rem;
+    border-top: 1px solid #2d2f47;
+  }
+
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer-copyright {
+    font-size: 12px;
+    margin-bottom: 1rem;
+    color: #d4af37;
+  }
+
+  .footer-disclaimer {
+    font-size: 11px;
+    color: #999;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .footer-nav {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+    font-size: 12px;
+    flex-wrap: wrap;
+  }
+
+  .footer-nav a {
+    color: #d4af37;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-nav a:hover {
+    color: #e5c24a;
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .section-footer {
+      padding: 1.5rem 1.5rem;
+    }
+
+    .footer-nav {
+      gap: 1rem;
+    }
+  }
+</style>
+
+<footer class="section-footer">
+  <div class="footer-container">
+    <nav class="footer-nav">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Contact</a>
+    </nav>
+    <p class="footer-copyright">{{ section.settings.copyright_text }}</p>
+    <p class="footer-disclaimer">{{ section.settings.disclaimer }}</p>
+  </div>
+</footer>

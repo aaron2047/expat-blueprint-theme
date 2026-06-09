@@ -1,0 +1,106 @@
+{% schema %}
+{
+  "name": "Hero Section",
+  "class": "section-hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Stop Guessing.\nStart Operating."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "The 2026 guide to the countries Americans can actually move to — matched to what you do for a living, with the visas, the costs, and the legal fine print spelled out."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Button Text",
+      "default": "Download the Master Manual"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Button Link"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#1a1f3a"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#f9f7f3"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .section-hero {
+    background: linear-gradient(135deg, {{ section.settings.bg_color }} 0%, #2d2f47 100%);
+    color: {{ section.settings.text_color }};
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+
+  .hero-headline {
+    font-family: Georgia, serif;
+    font-size: 48px;
+    font-weight: normal;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+  }
+
+  .hero-description {
+    font-size: 16px;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    opacity: 0.95;
+    line-height: 1.8;
+  }
+
+  .hero-cta {
+    background-color: #d4af37;
+    color: {{ section.settings.bg_color }};
+    padding: 12px 28px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 0;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    transition: background-color 0.2s ease;
+  }
+
+  .hero-cta:hover {
+    background-color: #e5c24a;
+  }
+
+  @media (max-width: 768px) {
+    .section-hero {
+      padding: 3rem 1.5rem;
+    }
+
+    .hero-headline {
+      font-size: 32px;
+    }
+  }
+</style>
+
+<section class="section-hero">
+  <div class="container">
+    <h1 class="hero-headline">{{ section.settings.headline | escape }}</h1>
+    <p class="hero-description">{{ section.settings.description }}</p>
+    {% if section.settings.cta_link %}
+      <a href="{{ section.settings.cta_link }}" class="hero-cta">{{ section.settings.cta_text }}</a>
+    {% endif %}
+  </div>
+</section>

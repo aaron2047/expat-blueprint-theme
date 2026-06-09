@@ -1,0 +1,129 @@
+{% schema %}
+{
+  "name": "E-E-A-T Verification Section",
+  "class": "section-eeat",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "2026 Data Verification & Compliance Standards"
+    },
+    {
+      "type": "text",
+      "id": "card_1_title",
+      "label": "Card 1 Title",
+      "default": "How is the data verified?"
+    },
+    {
+      "type": "textarea",
+      "id": "card_1_description",
+      "label": "Card 1 Description",
+      "default": "Every figure inside the blueprint is sourced, dated, and re-audited each release cycle to ensure accuracy and compliance with international standards."
+    },
+    {
+      "type": "text",
+      "id": "card_2_title",
+      "label": "Card 2 Title",
+      "default": "Does this replace legal counsel?"
+    },
+    {
+      "type": "textarea",
+      "id": "card_2_description",
+      "label": "Card 2 Description",
+      "default": "This guide is for informational purposes only and is not legal, immigration, tax, or financial advice. Always consult with qualified professionals before making relocation decisions."
+    },
+    {
+      "type": "text",
+      "id": "card_3_title",
+      "label": "Card 3 Title",
+      "default": "How is it delivered?"
+    },
+    {
+      "type": "textarea",
+      "id": "card_3_description",
+      "label": "Card 3 Description",
+      "default": "Instant secure PDF download. Optimized for mobile, desktop, and e-readers. No printing restrictions or DRM. Access your guide forever."
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .section-eeat {
+    padding: 4rem 2rem;
+    background-color: #ffffff;
+  }
+
+  .eeat-title {
+    font-family: Georgia, serif;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #1a1f3a;
+  }
+
+  .eeat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .eeat-card {
+    background-color: #f9f7f3;
+    padding: 1.5rem;
+    border: 0.5px solid #e5dcd0;
+  }
+
+  .eeat-card-title {
+    font-family: Georgia, serif;
+    font-size: 14px;
+    color: #d4af37;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+  }
+
+  .eeat-card-description {
+    font-size: 13px;
+    color: #666666;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .eeat-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .section-eeat {
+      padding: 2rem 1.5rem;
+    }
+
+    .eeat-title {
+      font-size: 20px;
+    }
+  }
+</style>
+
+<section class="section-eeat">
+  <div class="container">
+    <h2 class="eeat-title">{{ section.settings.section_title }}</h2>
+    <div class="eeat-grid">
+      <div class="eeat-card">
+        <h3 class="eeat-card-title">{{ section.settings.card_1_title }}</h3>
+        <p class="eeat-card-description">{{ section.settings.card_1_description }}</p>
+      </div>
+      <div class="eeat-card">
+        <h3 class="eeat-card-title">{{ section.settings.card_2_title }}</h3>
+        <p class="eeat-card-description">{{ section.settings.card_2_description }}</p>
+      </div>
+      <div class="eeat-card">
+        <h3 class="eeat-card-title">{{ section.settings.card_3_title }}</h3>
+        <p class="eeat-card-description">{{ section.settings.card_3_description }}</p>
+      </div>
+    </div>
+  </div>
+</section>
